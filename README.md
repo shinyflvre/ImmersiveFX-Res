@@ -1,5 +1,7 @@
 ImmersiveFX
 
+License may change complitely to ARR in near feature after rewrite and code stripping.
+
 NeoForge and Fabric API mod that gives the player control over the sounds that play.
 
 The ImmersiveFX 26.X+ combines 3 mods from 1.14.x+ into a single mod:
