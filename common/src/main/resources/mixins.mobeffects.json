@@ -1,0 +1,18 @@
+{
+  "package": "dynamiclabs.immersivefx.mobeffects.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [],
+  "client": [
+    "AccessorEntity",
+    "AccessorLivingEntity",
+    "AccessorParticleEngine",
+    "AccessorParticleResources",
+    "MixinBlockState",
+    "MixinEntityArrow"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

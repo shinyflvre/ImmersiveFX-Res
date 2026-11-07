@@ -1,0 +1,38 @@
+/*
+ * ImmersiveFX
+ * Copyright (C) 2026 Shinyflvres. See LICENSE.
+ */
+plugins {
+    id 'net.neoforged.moddev'
+}
+
+base {
+    archivesName = 'ImmersiveFX-common'
+}
+
+neoForge {
+    neoFormVersion = project.neo_form_version
+}
+
+dependencies {
+    compileOnly "net.fabricmc:sponge-mixin:${mixin_version}"
+    compileOnly "io.github.llamalad7:mixinextras-common:${mixinextras_version}"
+    compileOnly "fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${forgeconfigapiport_version}"
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+}
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+}

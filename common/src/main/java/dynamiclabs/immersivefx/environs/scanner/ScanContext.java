@@ -1,0 +1,73 @@
+/*
+ * ImmersiveFX
+ * Originally from Dynamic Surroundings by OreCruncher, licensed under GPL-3.0.
+ * Edited by Shinyflvres and contributors, 2026.
+ */
+/*
+ *  Dynamic Surroundings: Environs
+ *  Copyright (C) 2020  OreCruncher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package dynamiclabs.immersivefx.environs.scanner;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.world.level.BlockGetter;
+
+import net.minecraft.core.BlockPos;
+import dynamiclabs.immersivefx.lib.logging.IModLog;
+
+import java.util.function.Supplier;
+
+public class ScanContext {
+
+	private final Supplier<BlockGetter> worldReader;
+	private final Supplier<BlockPos> scanCenter;
+	private final Supplier<Integer> worldReference;
+	private final Supplier<IModLog> logger;
+
+	public ScanContext(
+			@Nonnull final Supplier<BlockGetter> worldReader,
+			@Nonnull final Supplier<BlockPos> scanCenter,
+			@Nonnull final Supplier<IModLog> logger,
+			@Nonnull final Supplier<Integer> worldReference
+	) {
+		this.worldReader = worldReader;
+		this.scanCenter = scanCenter;
+		this.worldReference = worldReference;
+		this.logger = logger;
+	}
+
+	@Nonnull
+	public BlockGetter getWorld() {
+		return this.worldReader.get();
+	}
+
+	@Nonnull
+	public BlockPos getCenter() {
+		return this.scanCenter.get();
+	}
+
+	@Nonnull
+	public IModLog getLogger() {
+		return this.logger.get();
+	}
+
+	public int getReference() {
+		return this.worldReference.get();
+	}
+
+}

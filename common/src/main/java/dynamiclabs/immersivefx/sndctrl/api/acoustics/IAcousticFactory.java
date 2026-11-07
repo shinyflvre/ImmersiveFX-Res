@@ -1,0 +1,79 @@
+/*
+ * ImmersiveFX
+ * Originally from Dynamic Surroundings by OreCruncher, licensed under GPL-3.0.
+ * Edited by Shinyflvres and contributors, 2026.
+ */
+/*
+ * Dynamic Surroundings: Sound Control
+ * Copyright (C) 2019  OreCruncher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package dynamiclabs.immersivefx.sndctrl.api.acoustics;
+
+import dynamiclabs.immersivefx.sndctrl.api.sound.IFadableSoundInstance;
+import dynamiclabs.immersivefx.sndctrl.api.sound.ISoundInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nonnull;
+
+public interface IAcousticFactory {
+    /**
+     * Creates a non-attenuated sound instance that plays on the MASTER category.
+     */
+    @Nonnull
+    ISoundInstance createSound();
+
+    /**
+     * Creates a sound instance centered in the block at the specified position.
+     */
+    @Nonnull
+    ISoundInstance createSoundAt(@Nonnull final BlockPos pos);
+
+    /**
+     * Creates a sound instance centered at the specified location.
+     */
+    @Nonnull
+    ISoundInstance createSoundAt(@Nonnull final Vec3 pos);
+
+    /**
+     * Creates a sound instance within a random range centered on the specified entity.
+     */
+    @Nonnull
+    ISoundInstance createSoundNear(@Nonnull final Entity entity);
+
+    /**
+     * Creates a sound instance within a random range centered on the specified entity.
+     */
+    @Nonnull
+    ISoundInstance createSoundNear(@Nonnull final Entity entity, final int minRange, final int maxRange);
+
+    /**
+     * Attaches a sound instance to the specified entity, and will move as the entity moves.
+     */
+    @Nonnull
+    ISoundInstance attachSound(@Nonnull final Entity entity);
+
+    /**
+     * Creates a sound instance with no attenuation and is not affected by range or other sound effects.
+     */
+    @Nonnull
+    IFadableSoundInstance createBackgroundSound();
+
+    boolean isContinuous();
+
+}

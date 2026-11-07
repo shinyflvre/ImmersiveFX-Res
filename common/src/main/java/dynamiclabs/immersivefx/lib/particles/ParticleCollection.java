@@ -1,0 +1,140 @@
+/*
+ * ImmersiveFX
+ * Originally from Dynamic Surroundings by OreCruncher, licensed under GPL-3.0.
+ * Edited by Shinyflvres and contributors, 2026.
+ */
+/*
+ * Dynamic Surroundings
+ * Copyright (C) 2020  OreCruncher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package dynamiclabs.immersivefx.lib.particles;
+
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import dynamiclabs.immersivefx.lib.GameUtils;
+import dynamiclabs.immersivefx.lib.TickCounter;
+import dynamiclabs.immersivefx.lib.math.LoggingTimerEMA;
+import dynamiclabs.immersivefx.lib.math.TimerEMA;
+import net.minecraft.client.Camera;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import dynamiclabs.immersivefx.lib.collections.ObjectArray;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
+
+final class ParticleCollection extends BaseParticle {
+
+    public static final ICollectionFactory FACTORY = ParticleCollection::new;
+
+    protected static final int MAX_PARTICLES = 4000;
+    protected static final int ALLOCATION_SIZE = 128;
+    protected static final int TICK_GRACE = 2;
+
+    private static final Predicate<IParticleMote> UPDATE_REMOVE = mote -> !mote.tick();
+
+    protected final LoggingTimerEMA render;
+    protected final LoggingTimerEMA tick;
+    protected final ObjectArray<IParticleMote> myParticles = new ObjectArray<>(ALLOCATION_SIZE);
+    protected final ParticleRenderType renderType;
+    protected long lastTickUpdate;
+
+    ParticleCollection(@Nonnull final String name, @Nonnull final Level world, @Nonnull final ParticleRenderType renderType) {
+        super(world, 0, 0, 0);
+
+        this.hasPhysics = false;
+        this.renderType = renderType;
+        this.render = new LoggingTimerEMA("Render " + name);
+        this.tick = new LoggingTimerEMA("Tick " + name);
+        this.lastTickUpdate = TickCounter.getTickCount();
+    }
+
+    public boolean canFit() {
+        return this.myParticles.size() < MAX_PARTICLES;
+    }
+
+    public void addParticle(@Nonnull final IParticleMote mote) {
+        if (canFit()) {
+            this.myParticles.add(mote);
+        }
+    }
+
+    public int size() {
+        return this.myParticles.size();
+    }
+
+    @Nonnull
+    public TimerEMA getRenderTimer() {
+        return this.render;
+    }
+
+    @Nonnull
+    public TimerEMA getTickTimer() {
+        return this.tick;
+    }
+
+    public boolean shouldDie() {
+        final boolean timeout = (TickCounter.getTickCount() - this.lastTickUpdate) > TICK_GRACE;
+        return timeout || size() == 0 || this.level != GameUtils.getWorld();
+    }
+
+    public void setExpired() {
+        remove();
+    }
+
+    @Override
+    public void tick() {
+        this.tick.begin();
+        if (isAlive()) {
+            this.lastTickUpdate = TickCounter.getTickCount();
+            this.myParticles.removeIf(UPDATE_REMOVE);
+            if (shouldDie()) {
+                setExpired();
+            }
+        }
+        this.tick.end();
+    }
+
+    public void extract(@Nonnull final MoteRenderState state, @Nullable final Frustum frustum, @Nonnull final Camera renderInfo, final float partialTicks) {
+        this.render.begin();
+        if (!this.myParticles.isEmpty()) {
+            final VertexConsumer buffer = state.begin(this.renderType.getLayer());
+            for (final IParticleMote mote : this.myParticles) {
+                final Vec3 pos = mote.getPosition();
+                if (frustum == null ? FrustumHelper.isLocationInFrustum(pos) : frustum.pointInFrustum(pos.x, pos.y, pos.z))
+                    mote.renderParticle(buffer, renderInfo, partialTicks);
+            }
+        }
+        this.render.end();
+    }
+
+    @Override
+    @Nonnull
+    public net.minecraft.client.particle.ParticleRenderType getGroup() {
+        return MoteParticleGroup.GROUP;
+    }
+
+    @Nonnull
+    public ParticleRenderType getRenderType() {
+        return this.renderType;
+    }
+
+    public interface ICollectionFactory {
+        ParticleCollection create(@Nonnull final String name, @Nonnull final Level world, @Nonnull final ParticleRenderType renderType);
+    }
+}

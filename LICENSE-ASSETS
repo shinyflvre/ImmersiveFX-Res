@@ -1,0 +1,39 @@
+ImmersiveFX licensing
+
+CODE
+
+The source code in this repository is covered by the GNU General Public
+License v3.0, see LICENSE. It is based on Dynamic Surroundings by OreCruncher.
+The header of each source file says where that file comes from.
+
+SOUNDS AND ARTWORK BY SHINYFLVRES
+
+Copyright (c) 2026 Shinyflvres. All Rights Reserved.
+
+This covers:
+- the sound files made by Shinyflvres in
+  common/src/main/resources/assets/environs/sounds,
+  common/src/main/resources/assets/immersivefx/sounds and
+  common/src/main/resources/assets/mobeffects/sounds
+- common/src/main/resources/logo.png
+- common/src/main/resources/assets/immersivefx/textures/gui/menu/*.png
+
+These files are separate works and are not covered by the GNU GPL.
+
+You may use them as part of ImmersiveFX. You may not copy, extract, edit,
+redistribute or reuse them in any other project without written permission
+from Shinyflvres.
+
+SOUNDS BY OTHER AUTHORS
+
+These sounds are not by Shinyflvres. They stay with their authors and are not
+covered by the notice above or by the GNU GPL:
+- common/src/main/resources/assets/untamedwilds/sounds
+- common/src/main/resources/assets/minecraft/sounds
+- any other sound not made by Shinyflvres, including every sound whose entry
+  in a sounds.json file credits another author
+
+OTHER FILES
+
+All other files that are not sounds, including the remaining textures, follow
+the code licence unless the file itself says otherwise.

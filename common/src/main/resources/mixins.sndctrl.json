@@ -1,0 +1,26 @@
+{
+  "package": "dynamiclabs.immersivefx.sndctrl.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [],
+  "client": [
+    "AccessorAbstractSoundInstance",
+    "AccessorChannel",
+    "AccessorLevel",
+    "AccessorLibrary",
+    "AccessorSoundBuffer",
+    "AccessorSoundEngine",
+    "AccessorSoundManager",
+    "MixinBlockState",
+    "MixinChannelPanning",
+    "MixinClientWorld",
+    "MixinListener",
+    "MixinSoundEngine",
+    "MixinSoundSource",
+    "MixinSoundSystem"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

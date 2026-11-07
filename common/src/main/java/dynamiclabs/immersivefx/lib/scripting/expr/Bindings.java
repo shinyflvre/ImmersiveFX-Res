@@ -1,0 +1,73 @@
+/*
+ * ImmersiveFX
+ * Originally from Dynamic Surroundings by OreCruncher, licensed under GPL-3.0.
+ * Edited by Shinyflvres and contributors, 2026.
+ */
+/*
+ * Dynamic Surroundings
+ * Copyright (C) 2020  OreCruncher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package dynamiclabs.immersivefx.lib.scripting.expr;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+
+public final class Bindings {
+
+    public static final class Slot {
+        private final String name;
+        Object value = Undefined.INSTANCE;
+
+        Slot(@Nonnull final String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public Object get() {
+            return this.value;
+        }
+    }
+
+    private final Map<String, Slot> slots = new HashMap<>();
+
+    @Nonnull
+    public Slot slot(@Nonnull final String name) {
+        return this.slots.computeIfAbsent(name, Slot::new);
+    }
+
+    public void put(@Nonnull final String name, @Nullable final Object value) {
+        slot(name).value = value;
+    }
+
+    @Nullable
+    public Object get(@Nonnull final String name) {
+        final Slot s = this.slots.get(name);
+        if (s == null || s.value == Undefined.INSTANCE)
+            return null;
+        return s.value;
+    }
+
+    public boolean isDefined(@Nonnull final String name) {
+        final Slot s = this.slots.get(name);
+        return s != null && s.value != Undefined.INSTANCE;
+    }
+}

@@ -1,0 +1,51 @@
+/*
+ * ImmersiveFX
+ * Originally from Dynamic Surroundings by OreCruncher, licensed under GPL-3.0.
+ * Edited by Shinyflvres and contributors, 2026.
+ */
+/*
+ * Dynamic Surroundings
+ * Copyright (C) 2020  OreCruncher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>
+ */
+
+package dynamiclabs.immersivefx.lib.particles;
+
+import dynamiclabs.immersivefx.lib.GameUtils;
+import dynamiclabs.immersivefx.lib.random.XorShiftRandom;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.level.Level;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
+
+public abstract class BaseParticle extends Particle {
+
+    protected static final EntityRenderDispatcher manager = GameUtils.getMC().getEntityRenderDispatcher();
+    protected static final Random RANDOM = XorShiftRandom.current();
+
+    protected BaseParticle(@Nonnull final Level worldIn, final double posXIn, final double posYIn,
+                           final double posZIn) {
+        super((ClientLevel) worldIn, posXIn, posYIn, posZIn);
+    }
+
+    public BaseParticle(@Nonnull final Level worldIn, final double xCoordIn, final double yCoordIn,
+                        final double zCoordIn, final double xSpeedIn, final double ySpeedIn, final double zSpeedIn) {
+        super((ClientLevel) worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+    }
+
+}

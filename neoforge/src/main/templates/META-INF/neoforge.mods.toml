@@ -1,0 +1,43 @@
+# ImmersiveFX
+# Copyright (C) 2026 Shinyflvres. See LICENSE.
+modLoader="javafml"
+loaderVersion="[1,)"
+license="${mod_license}"
+issueTrackerURL="https://github.com/Y3Z0N/ImmersiveFX/issues"
+showAsResourcePack=false
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+iconFile="logo.png"
+credits="Shinyflvres (ImmersiveFX), OreCruncher (Dynamic Surroundings). Wirsbo for BetterRain, SonicEther for Sound Physics, MrRube for Aurora Rubealis, Hurricaaane for Presence Footsteps and MAtmos"
+authors="${mod_authors}"
+description='''
+Adds a variety of sound and visual effects to improve your Minecraft experience: footsteps, biome and spot ambience in 3D, auroras, fog, water and fire effects, sound control and everyday special effects.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[mixins]]
+config="mixins.dsurround.json"
+[[mixins]]
+config="mixins.sndctrl.json"
+[[mixins]]
+config="mixins.environs.json"
+[[mixins]]
+config="mixins.mobeffects.json"
+[[mixins]]
+config="mixins.immersivefx.neoforge.json"

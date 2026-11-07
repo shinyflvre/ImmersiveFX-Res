@@ -1,0 +1,21 @@
+{
+  "package": "dynamiclabs.immersivefx.environs.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [],
+  "client": [
+    "DripParticleAccessor",
+    "MixinBiome",
+    "MixinBlockState",
+    "MixinDripParticleDripping",
+    "MixinEnvironmentAttributeProbe",
+    "MixinRainParticle",
+    "ParticleAccessor",
+    "ParticleEngineAccessor",
+    "ParticleResourcesAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

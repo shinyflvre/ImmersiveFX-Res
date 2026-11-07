@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "Adds a variety of sound and visual effects to improve your Minecraft experience: footsteps, biome and spot ambience in 3D, auroras, fog, water and fire effects, sound control and everyday special effects.",
+  "authors": [
+    "OreCruncher",
+    "Shinyflvres",
+    "Amo",
+    "Elise",
+    "Phaze"
+  ],
+  "contributors": [
+    "Wirsbo (BetterRain)",
+    "SonicEther (Sound Physics)",
+    "MrRube (Aurora Rubealis)",
+    "Hurricaaane (Presence Footsteps, MAtmos)"
+  ],
+  "contact": {
+    "issues": "https://github.com/Y3Z0N/ImmersiveFX/issues"
+  },
+  "license": "${mod_license}",
+  "icon": "logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dynamiclabs.immersivefx.fabric.ImmersiveFXFabric"
+    ],
+    "modmenu": [
+      "dynamiclabs.immersivefx.fabric.ImmersiveFXModMenu"
+    ]
+  },
+  "mixins": [
+    "mixins.dsurround.json",
+    "mixins.sndctrl.json",
+    "mixins.environs.json",
+    "mixins.mobeffects.json",
+    "mixins.immersivefx.fabric.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": "${minecraft_version}",
+    "java": ">=25",
+    "fabric-api": "*",
+    "forgeconfigapiport": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}

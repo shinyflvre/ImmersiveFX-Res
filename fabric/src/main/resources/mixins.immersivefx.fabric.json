@@ -1,0 +1,31 @@
+{
+  "package": "dynamiclabs.immersivefx.fabric.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "MixinFurnaceResultSlot",
+    "MixinPersistentEntitySectionManager",
+    "MixinPlayer",
+    "MixinResultSlot",
+    "MixinServerLevel"
+  ],
+  "client": [
+    "DebugScreenEntriesAccessor",
+    "KeyMappingAccessor",
+    "MixinClientLevel",
+    "MixinClientPacketListener",
+    "MixinFogRenderer",
+    "MixinGui",
+    "MixinKeyboardHandler",
+    "MixinKeyMapping",
+    "MixinLevelExtractor",
+    "MixinLevelRenderer",
+    "MixinMinecraft",
+    "MixinParticleEngine",
+    "MixinSoundEngine"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

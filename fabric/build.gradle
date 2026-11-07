@@ -1,0 +1,94 @@
+/*
+ * ImmersiveFX
+ * Copyright (C) 2026 Shinyflvres. See LICENSE.
+ */
+plugins {
+    id 'net.fabricmc.fabric-loom'
+}
+
+base {
+    archivesName = 'ImmersiveFX'
+}
+
+tasks.named('jar', Jar) {
+    archiveClassifier = 'fabric'
+}
+
+repositories {
+    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+    exclusiveContent {
+        forRepository { maven { name = 'TerraformersMC'; url = 'https://maven.terraformersmc.com/releases/' } }
+        filter { includeGroup 'com.terraformersmc' }
+    }
+}
+
+configurations {
+    commonJava {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    commonResources {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    commonJava project(path: ':common', configuration: 'commonJava')
+    commonResources project(path: ':common', configuration: 'commonResources')
+
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    implementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+    include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
+
+    compileOnly "com.terraformersmc:modmenu:${modmenu_version}"
+    localRuntime "com.terraformersmc:modmenu:${modmenu_version}"
+
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn configurations.commonJava
+    source configurations.commonJava
+}
+
+tasks.named('processResources', ProcessResources) {
+    dependsOn configurations.commonResources
+    from configurations.commonResources
+
+    def props = [
+            version              : mod_version,
+            mod_id               : mod_id,
+            mod_name             : mod_name,
+            mod_license          : mod_license,
+            minecraft_version    : minecraft_version,
+            fabric_loader_version: fabric_loader_version,
+    ]
+    inputs.properties props
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+}
+
+loom {
+    mods {
+        immersivefx {
+            sourceSet sourceSets.main
+        }
+    }
+
+    runs {
+        client {
+            client()
+            runDir = '../run-fabric'
+            ideConfigGenerated true
+        }
+
+    }
+}
+
+loom.runs.matching { it.name == 'server' }.configureEach { ideConfigGenerated false }
+tasks.matching { it.name == 'runServer' }.configureEach { enabled = false }

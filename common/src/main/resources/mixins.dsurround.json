@@ -1,0 +1,20 @@
+{
+  "package": "dynamiclabs.immersivefx.dsurround.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [],
+  "client": [
+    "MixinEntity",
+    "MixinLivingEntity",
+    "MixinMultiPlayerGameMode",
+    "RenderPipelinesAccessor",
+    "MixinLevelEventHandler",
+    "MixinEditBox",
+    "MixinMultiLineEditBox",
+    "MixinTextFieldHelper"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

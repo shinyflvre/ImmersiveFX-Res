@@ -1,0 +1,13 @@
+{
+  "package": "dynamiclabs.immersivefx.neoforge.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [],
+  "client": [
+    "MixinSoundEngineStream"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
