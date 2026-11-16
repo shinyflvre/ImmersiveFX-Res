@@ -20,7 +20,7 @@ Adds a variety of sound and visual effects to improve your Minecraft experience:
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="[${neo_version},)"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 

@@ -64,7 +64,7 @@ final class MenuStyle {
     }
 
     static void icon(final GuiGraphicsExtractor g, final int index, final int x, final int y, final int color) {
-        g.blit(RenderPipelines.GUI_TEXTURED, ICONS, x, y, (index % 4) * 16, (index / 4) * 16, 16, 16, 64, 64, color);
+        g.blit(RenderPipelines.GUI_TEXTURED, ICONS, x, y, (index % 4) * 24, (index / 4) * 24, 16, 16, 24, 24, 96, 96, color);
     }
 
     static void rect(final GuiGraphicsExtractor g, final int x, final int y, final int w, final int h, final int color) {
